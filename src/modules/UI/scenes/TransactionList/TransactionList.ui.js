@@ -3,7 +3,7 @@
 import { bns } from 'biggystring'
 import type { AbcDenomination, AbcTransaction } from 'edge-login'
 import React, { Component } from 'react'
-import { ActivityIndicator, Animated, Image, ScrollView, TouchableHighlight, TouchableOpacity, View, FlatList } from 'react-native'
+import { ActivityIndicator, Animated, Image, ScrollView, TouchableHighlight, TouchableOpacity, View, SectionList } from 'react-native'
 import Contacts from 'react-native-contacts'
 import Permissions from 'react-native-permissions'
 import { Actions } from 'react-native-router-flux'
@@ -202,13 +202,16 @@ export default class TransactionList extends Component<Props, State> {
       return <ActivityIndicator style={{ flex: 1, alignSelf: 'center' }} size={'large'} />
     }
 
-    const renderableTransactionList = transactions.sort(function (a: any, b: any) {
+    /* const renderableTransactionList = transactions.sort(function (a: any, b: any) {
       a = new Date(a.date)
       b = new Date(b.date)
       return a > b ? -1 : a < b ? 1 : 0
-    })
-
-    const completedTxList = renderableTransactionList.map((x, i) => {
+    }) */
+    const sectionedTransactionList = []
+    let previousDateString: string = ''
+    let currentSectionData = {title: '', data: []}
+    console.log('start processing dates: ', Date.now())
+    transactions.map((x, i) => {
       const newValue: TransactionListTx = x
       newValue.key = i
       newValue.multiplier = multiplier
@@ -220,8 +223,16 @@ export default class TransactionList extends Component<Props, State> {
       const time = txDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric' })
       newValue.dateString = dateString
       newValue.time = time
+      if (previousDateString === dateString) { // if it's still in the same date
+        currentSectionData.data.unshift(newValue)
+      } else { // if it is not the same date
+        currentSectionData = {title: dateString, data: [newValue]}
+        sectionedTransactionList.unshift(currentSectionData)
+      }
+      previousDateString = dateString
       return newValue
     })
+    console.log('end   processing dates: ', Date.now())
 
     let logo
 
@@ -327,12 +338,14 @@ export default class TransactionList extends Component<Props, State> {
                 </Gradient>
               </Animated.View>
               <View style={[styles.transactionsWrap]}>
-                <FlatList
+                <SectionList
                   style={[styles.transactionsScrollWrap]}
-                  data={completedTxList}
+                  sections={sectionedTransactionList}
                   renderItem={this.renderTx}
                   initialNumToRender={12}
+                  renderSectionHeader={({section}) => this.renderSectionHeader(section)}
                   removeClippedSubviews={true}
+                  stickySectionHeadersEnabled={true}
                   /* onEndReached={this.loadMoreTransactions}
                   onEndReachedThreshold={60}
                   enableEmptySections
@@ -429,11 +442,6 @@ export default class TransactionList extends Component<Props, State> {
 
     return (
       <View style={[styles.singleTransactionWrap]}>
-        <View style={styles.singleDateArea}>
-          <View style={styles.leftDateArea}>
-            <T style={styles.formattedDate}>{tx.dateString}</T>
-          </View>
-        </View>
         <TouchableHighlight
           onPress={() => this._goToTxDetail(tx, thumbnailPath)}
           underlayColor={styleRaw.transactionUnderlay.color}
@@ -461,6 +469,16 @@ export default class TransactionList extends Component<Props, State> {
             </View>
           </View>
         </TouchableHighlight>
+      </View>
+    )
+  }
+
+  renderSectionHeader = (sectionData: {data: Array<any>, title: string}) => {
+    return (
+      <View style={styles.singleDateArea}>
+        <View style={styles.leftDateArea}>
+          <T style={styles.formattedDate}>{sectionData.title}</T>
+        </View>
       </View>
     )
   }
