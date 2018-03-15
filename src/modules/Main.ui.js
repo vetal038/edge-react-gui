@@ -69,6 +69,7 @@ import DefaultFiatSettingConnector from './UI/scenes/Settings/DefaultFiatSetting
 import SettingsOverview from './UI/scenes/Settings/SettingsOverviewConnector'
 import TransactionDetails from './UI/scenes/TransactionDetails/TransactionDetailsConnector.js'
 import TransactionListConnector from './UI/scenes/TransactionList/TransactionListConnector'
+import TransactionVLListConnector from './UI/scenes/TransactionVLList/TransactionVLListConnector'
 import { HwBackButtonHandler } from './UI/scenes/WalletList/components/HwBackButtonHandler'
 import WalletList from './UI/scenes/WalletList/WalletListConnector'
 
@@ -119,6 +120,7 @@ const EXCHANGE = s.strings.title_exchange
 const CHANGE_MINING_FEE = s.strings.title_change_mining_fee
 const BACK = s.strings.title_back
 const SEND_CONFIRMATION = s.strings.title_send_confirmation
+const TRANSACTION_LIST = s.strings.title_transaction_list
 const MANAGE_TOKENS = s.strings.title_manage_tokens
 const ADD_TOKEN = s.strings.title_add_token
 const EDIT_TOKEN = s.strings.title_edit_token
@@ -474,6 +476,19 @@ export default class Main extends Component<Props, State> {
                         renderRightButton={this.renderEmptyButton()}
                       />
                     </Stack>
+
+                    <Stack key={Constants.TRANSACTION_WRAPPER} hideTabBar>
+                      <Scene
+                        key={Constants.TRANSACTION_WRAPPER_SCENE}
+                        navTransparent={true}
+                        hideTabBar
+                        panHandlers={null}
+                        component={TransactionVLListConnector}
+                        renderTitle={this.renderTitle(TRANSACTION_LIST)}
+                        renderLeftButton={this.renderBackButton()}
+                        renderRightButton={this.renderSendConfirmationButton()}
+                      />
+                    </Stack>
                   </Scene>
                 </Drawer>
               </Stack>
@@ -572,6 +587,7 @@ export default class Main extends Component<Props, State> {
   }
 
   handleBack = () => {
+    console.log('!!!handleBack!!!');
     if (this.isCurrentScene(Constants.LOGIN)) {
       return false
     }

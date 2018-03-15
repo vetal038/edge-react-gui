@@ -66,7 +66,7 @@
     "zlib": "browserify-zlib"
   },
   "dependencies": {
-    "airbitz-core-js-ui": "git://github.com/Airbitz/airbitz-core-js-ui.git#react-native",
+    "airbitz-core-js-ui": "git://github.com/vetal038/edge-login-ui.git#react-native-vaultlogic",
     "biggystring": "^3.0.1",
     "browserify-zlib": "^0.1.4",
     "buffer": "^5.0.8",
@@ -128,7 +128,7 @@
     "react-native-slider": "^0.11.0",
     "react-native-smart-splash-screen": "^2.3.5",
     "react-native-sortable-listview": "^0.2.7",
-    "react-native-sound": "^0.10.4",
+    "react-native-sound": "0.10.4",
     "react-native-tcp": "git://github.com/Airbitz/react-native-tcp.git#b27f3825e127947c52b14146de01b995338994e7",
     "react-native-udp": "^2.0.0",
     "react-native-vector-icons": "^4.2.0",

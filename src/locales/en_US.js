@@ -187,6 +187,7 @@ const strings = {
   title_otp: '2 Factor Authentication',
   title_request: 'Request',
   title_send_confirmation: 'Send Confirmation',
+  title_transaction_list: 'Transaction List',
   title_send: 'Send',
   title_settings: 'Settings',
   title_transaction_details: 'Transaction Details',

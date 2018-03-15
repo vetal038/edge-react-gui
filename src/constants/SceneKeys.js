@@ -34,6 +34,8 @@ export const SETTINGS_OVERVIEW_TAB = 'settingsOverviewTab'
 export const DEFAULT_FIAT_SETTING = 'defaultFiatSetting'
 export const EXCHANGE_NOT_USED = 'exchange_notused'
 export const CREATE_WALLET = 'createWallet'
+export const TRANSACTION_WRAPPER = 'transactionList'
+export const TRANSACTION_WRAPPER_SCENE = 'transactionListScene' // distinguished as actual scene vs. stack
 
 export const CURRENCY_SETTINGS = {
   btcSettings: {
