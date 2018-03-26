@@ -17,6 +17,7 @@ import { connect } from 'react-redux'
 import * as URI from 'uri-js'
 
 import ENV from '../../env.json'
+import Icon from 'react-native-vector-icons/FontAwesome'
 import MenuIcon from '../assets/images/MenuButton/menu.png'
 import exchangeIconSelected from '../assets/images/tabbar/exchange_selected.png'
 import exchangeIcon from '../assets/images/tabbar/exchange.png'
@@ -26,6 +27,8 @@ import scanIconSelected from '../assets/images/tabbar/scan_selected.png'
 import scanIcon from '../assets/images/tabbar/scan.png'
 import walletIconSelected from '../assets/images/tabbar/wallets_selected.png'
 import walletIcon from '../assets/images/tabbar/wallets.png'
+import mapIconSelected from '../assets/images/tabbar/map_selected.png'
+import mapIcon from '../assets/images/tabbar/map.png'
 import ExchangeDropMenu from '../connectors/components/HeaderMenuExchangeConnector'
 import ExchangeConnector from '../connectors/scene/CryptoExchangeSceneConnector'
 import EdgeLoginSceneConnector from '../connectors/scene/EdgeLoginSceneConnector'
@@ -70,6 +73,7 @@ import SettingsOverview from './UI/scenes/Settings/SettingsOverviewConnector'
 import TransactionDetails from './UI/scenes/TransactionDetails/TransactionDetailsConnector.js'
 import TransactionListConnector from './UI/scenes/TransactionList/TransactionListConnector'
 import TransactionVLListConnector from './UI/scenes/TransactionVLList/TransactionVLListConnector'
+import KiosksLocationConnector from './UI/scenes/KiosksLocation/KiosksLocationConnector'
 import { HwBackButtonHandler } from './UI/scenes/WalletList/components/HwBackButtonHandler'
 import WalletList from './UI/scenes/WalletList/WalletListConnector'
 
@@ -100,6 +104,7 @@ tabBarIconFiles[Constants.REQUEST] = receiveIcon
 tabBarIconFiles[Constants.SCAN] = scanIcon
 tabBarIconFiles[Constants.TRANSACTION_LIST] = exchangeIcon
 tabBarIconFiles[Constants.EXCHANGE] = exchangeIcon
+tabBarIconFiles[Constants.MAP] = mapIcon
 
 const tabBarIconFilesSelected: { [tabName: string]: string } = {}
 tabBarIconFilesSelected[Constants.WALLET_LIST] = walletIconSelected
@@ -107,6 +112,7 @@ tabBarIconFilesSelected[Constants.REQUEST] = receiveIconSelected
 tabBarIconFilesSelected[Constants.SCAN] = scanIconSelected
 tabBarIconFilesSelected[Constants.TRANSACTION_LIST] = exchangeIconSelected
 tabBarIconFilesSelected[Constants.EXCHANGE] = exchangeIconSelected
+tabBarIconFilesSelected[Constants.MAP] = mapIconSelected
 
 const TRANSACTION_DETAILS = s.strings.title_transaction_details
 const WALLETS = s.strings.title_wallets
@@ -116,11 +122,14 @@ const CREATE_WALLET = s.strings.title_create_wallet
 const REQUEST = s.strings.title_request
 const SEND = s.strings.title_send
 const EDGE_LOGIN = s.strings.title_edge_login
+const WALLET = s.strings.title_wallet
+const SCAN = s.strings.title_scan
 const EXCHANGE = s.strings.title_exchange
 const CHANGE_MINING_FEE = s.strings.title_change_mining_fee
 const BACK = s.strings.title_back
 const SEND_CONFIRMATION = s.strings.title_send_confirmation
 const TRANSACTION_LIST = s.strings.title_transaction_list
+const KIOSKS_LOCATION = s.strings.title_kiosks_location
 const MANAGE_TOKENS = s.strings.title_manage_tokens
 const ADD_TOKEN = s.strings.title_add_token
 const EDIT_TOKEN = s.strings.title_edit_token
@@ -245,102 +254,20 @@ export default class Main extends Component<Props, State> {
                       showLabel={true}
                       tabBarStyle={styles.footerTabStyles}
                     >
-                      <Stack key={Constants.WALLET_LIST} icon={this.icon(Constants.WALLET_LIST)} tabBarLabel={WALLETS}>
+                      <Stack key={Constants.TRANSACTION_WRAPPER} icon={this.icon(Constants.WALLET_LIST)} tabBarLabel={TRANSACTION_LIST}>
                         <Scene
-                          key={Constants.WALLET_LIST_SCENE}
+                          key={Constants.TRANSACTION_WRAPPER_SCENE}
                           navTransparent={true}
-                          component={WalletList}
-                          renderTitle={this.renderTitle(WALLETS)}
-                          renderLeftButton={this.renderHelpButton()}
+                          panHandlers={null}
+                          component={TransactionVLListConnector}
+                          renderTitle={this.renderTitle(TRANSACTION_LIST)}
+                          renderLeftButton={this.renderEmptyButton()}
                           renderRightButton={this.renderMenuButton()}
-                        />
-
-                        <Scene
-                          key={Constants.CREATE_WALLET_NAME}
-                          navTransparent={true}
-                          component={CreateWalletName}
-                          renderTitle={this.renderTitle(CREATE_WALLET)}
-                          renderLeftButton={this.renderBackButton(WALLETS)}
-                          renderRightButton={this.renderEmptyButton()}
-                        />
-
-                        <Scene
-                          key={Constants.CREATE_WALLET_SELECT_CRYPTO}
-                          navTransparent={true}
-                          component={CreateWalletSelectCrypto}
-                          renderTitle={this.renderTitle(CREATE_WALLET_SELECT_CRYPTO)}
-                          renderLeftButton={this.renderBackButton()}
-                          renderRightButton={this.renderEmptyButton()}
-                        />
-
-                        <Scene
-                          key={Constants.CREATE_WALLET_SELECT_FIAT}
-                          navTransparent={true}
-                          component={CreateWalletSelectFiat}
-                          renderTitle={this.renderTitle(CREATE_WALLET_SELECT_FIAT)}
-                          renderLeftButton={this.renderBackButton()}
-                          renderRightButton={this.renderEmptyButton()}
-                        />
-
-                        <Scene
-                          key={Constants.CREATE_WALLET_REVIEW}
-                          navTransparent={true}
-                          component={CreateWalletReview}
-                          renderTitle={this.renderTitle(CREATE_WALLET)}
-                          renderLeftButton={this.renderBackButton()}
-                          renderRightButton={this.renderEmptyButton()}
-                        />
-
-                        <Scene
-                          key={Constants.TRANSACTION_LIST}
-                          navTransparent={true}
-                          component={TransactionListConnector}
-                          renderTitle={this.renderWalletListNavBar()}
-                          renderLeftButton={this.renderBackButton(WALLETS)}
-                          renderRightButton={this.renderMenuButton()}
-                        />
-
-                        <Scene
-                          key={Constants.MANAGE_TOKENS}
-                          renderLeftButton={this.renderBackButton()}
-                          navTransparent={true}
-                          component={ManageTokens}
-                          renderTitle={this.renderTitle(MANAGE_TOKENS)}
-                          renderRightButton={this.renderEmptyButton()}
-                          animation={'fade'}
-                          duration={600}
-                        />
-                        <Scene
-                          key={Constants.ADD_TOKEN}
-                          component={AddToken}
-                          navTransparent={true}
-                          onLeft={Actions.pop}
-                          renderLeftButton={this.renderBackButton()}
-                          renderRightButton={this.renderEmptyButton()}
-                          renderTitle={this.renderTitle(ADD_TOKEN)}
-                        />
-                        <Scene
-                          key={Constants.EDIT_TOKEN}
-                          component={EditToken}
-                          navTransparent={true}
-                          renderLeftButton={this.renderBackButton()}
-                          renderRightButton={this.renderEmptyButton()}
-                          renderTitle={this.renderTitle(EDIT_TOKEN)}
+                          username={this.props.username}
                         />
                       </Stack>
 
-                      <Scene
-                        key={Constants.REQUEST}
-                        navTransparent={true}
-                        icon={this.icon(Constants.REQUEST)}
-                        tabBarLabel={REQUEST}
-                        component={Request}
-                        renderTitle={this.renderWalletListNavBar()}
-                        renderLeftButton={this.renderHelpButton()}
-                        renderRightButton={this.renderMenuButton()}
-                      />
-
-                      <Stack key={Constants.SCAN} icon={this.icon(Constants.SCAN)} tabBarLabel={SEND}>
+                      <Stack key={Constants.SCAN} icon={this.icon(Constants.EXCHANGE)} tabBarLabel={SCAN}>
                         <Scene
                           key={Constants.SCAN_NOT_USED}
                           navTransparent={true}
@@ -350,8 +277,8 @@ export default class Main extends Component<Props, State> {
                           }}
                           onExit={this.props.dispatchDisableScan}
                           component={Scan}
-                          renderTitle={this.renderWalletListNavBar()}
-                          renderLeftButton={this.renderHelpButton()}
+                          renderTitle={this.renderTitle(SCAN)/*this.renderWalletListNavBar()*/}
+                          renderLeftButton={this.renderEmptyButton()}
                           renderRightButton={this.renderMenuButton()}
                         />
                         <Scene
@@ -364,22 +291,16 @@ export default class Main extends Component<Props, State> {
                         />
                       </Stack>
 
-                      <Stack key={Constants.EXCHANGE} icon={this.icon(Constants.EXCHANGE)} tabBarLabel={EXCHANGE}>
+                      <Stack key={Constants.LOCATION_WRAPPER} icon={this.icon(Constants.MAP)} tabBarLabel={KIOSKS_LOCATION}>
                         <Scene
-                          key={Constants.EXCHANGE_NOT_USED}
+                          key={Constants.LOCATION_WRAPPER_SCENE}
                           navTransparent={true}
-                          component={ExchangeConnector}
-                          renderTitle={this.renderTitle(EXCHANGE)}
-                          renderLeftButton={this.renderExchangeButton()}
+                          panHandlers={null}
+                          component={KiosksLocationConnector}
+                          renderTitle={this.renderTitle(KIOSKS_LOCATION)}
+                          renderLeftButton={this.renderEmptyButton()}
                           renderRightButton={this.renderMenuButton()}
-                        />
-                        <Scene
-                          key={Constants.CHANGE_MINING_FEE_EXCHANGE}
-                          navTransparent={true}
-                          component={ChangeMiningFeeExchange}
-                          renderTitle={this.renderTitle(CHANGE_MINING_FEE)}
-                          renderLeftButton={this.renderBackButton()}
-                          renderRightButton={this.renderHelpButton()}
+                          username={this.props.username}
                         />
                       </Stack>
                     </Tabs>
@@ -477,18 +398,6 @@ export default class Main extends Component<Props, State> {
                       />
                     </Stack>
 
-                    <Stack key={Constants.TRANSACTION_WRAPPER} hideTabBar>
-                      <Scene
-                        key={Constants.TRANSACTION_WRAPPER_SCENE}
-                        navTransparent={true}
-                        hideTabBar
-                        panHandlers={null}
-                        component={TransactionVLListConnector}
-                        renderTitle={this.renderTitle(TRANSACTION_LIST)}
-                        renderLeftButton={this.renderBackButton()}
-                        renderRightButton={this.renderSendConfirmationButton()}
-                      />
-                    </Stack>
                   </Scene>
                 </Drawer>
               </Stack>
@@ -591,7 +500,7 @@ export default class Main extends Component<Props, State> {
     if (this.isCurrentScene(Constants.LOGIN)) {
       return false
     }
-    if (this.isCurrentScene(Constants.WALLET_LIST_SCENE)) {
+    if (this.isCurrentScene(Constants.TRANSACTION_WRAPPER_SCENE)) {
       return HwBackButtonHandler()
     }
     Actions.pop()

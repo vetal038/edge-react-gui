@@ -15,10 +15,11 @@ export const mapStateToProps = (state: any) => ({
 })
 
 export const mapDispatchToProps = (dispatch: any) => ({
-  accept: () =>
+  accept: () => {
     dispatch(actions.lobbyLogin()).catch(e => {
       console.log(e)
-    }),
+    })
+  },
   decline: () => Actions.pop()
 })
 

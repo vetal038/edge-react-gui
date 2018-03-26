@@ -198,13 +198,13 @@ export class Request extends Component<Props, State> {
   }
 
   shareMessage = () => {
-    const APP_NAME = 'Edge Wallet'
+    const APP_NAME = 'vCash Wallet'
     Share.share(
       {
         message: this.state.encodedURI,
         title: sprintf(s.strings.request_qr_email_title, APP_NAME)
       },
-      { dialogTitle: 'Share Edge Request' }
+      { dialogTitle: 'Share vCash Request' }
     )
       .then(this.showResult)
       .catch(error =>

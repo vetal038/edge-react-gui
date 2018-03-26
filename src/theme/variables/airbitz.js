@@ -91,8 +91,8 @@ export default {
     PRIMARY_BUTTON_TOUCHED: 'rgba(42,87,153,0.55)',
 
     GRADIENT: {
-      DARK:  '#0D2145',
-      LIGHT: '#0E4B75'
+      DARK:  '#6856d6',//'#0D2145'
+      LIGHT: '#6856d6'//'#0E4B75'
     },
     GRADIENT_REVERSE: {
       LIGHT:  '#0D2145',

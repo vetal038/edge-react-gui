@@ -8,6 +8,7 @@ export const CHANGE_PIN = 'changePin'
 export const OTP_SETUP = 'otpSetup'
 export const RECOVER_PASSWORD = 'passwordRecovery'
 export const EXCHANGE = 'exchange'
+export const MAP = 'map'
 export const EDGE_LOGIN = 'edgeLogin'
 export const WALLET_LIST = 'walletList'
 export const WALLET_LIST_SCENE = 'walletListScene' // distinguished as actual scene vs. stack
@@ -36,6 +37,8 @@ export const EXCHANGE_NOT_USED = 'exchange_notused'
 export const CREATE_WALLET = 'createWallet'
 export const TRANSACTION_WRAPPER = 'transactionList'
 export const TRANSACTION_WRAPPER_SCENE = 'transactionListScene' // distinguished as actual scene vs. stack
+export const LOCATION_WRAPPER = 'locationWrapper'
+export const LOCATION_WRAPPER_SCENE = 'locationScene'
 
 export const CURRENCY_SETTINGS = {
   btcSettings: {

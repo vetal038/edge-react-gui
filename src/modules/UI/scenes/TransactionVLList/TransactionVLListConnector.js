@@ -11,9 +11,10 @@ import { setContactList } from '../../contacts/action'
 import * as UI_SELECTORS from '../../selectors.js'
 import * as SETTINGS_SELECTORS from '../../Settings/selectors.js'
 import { getTransactionsRequest } from './action'
+import req from './http/user'
 import TransactionVLList from './TransactionVLList.ui'
 
-const mapStateToProps = (state: State) => {
+const mapStateToProps = (state: State, ownProps) => {
   // const selectedWalletId = UI_SELECTORS.getSelectedWalletId(state)
   // const wallet = UI_SELECTORS.getSelectedWallet(state)
   // if (!wallet) {
@@ -54,7 +55,13 @@ const mapStateToProps = (state: State) => {
   // const balanceInCryptoDisplay = UTILS.convertNativeToExchange(exchangeDenomination.multiplier)(balanceInCrypto)
   // const balanceInFiat = currencyConverter.convertCurrency(currencyCode, isoFiatCurrencyCode, balanceInCryptoDisplay)
   // const displayDenomination = SETTINGS_SELECTORS.getDisplayDenomination(state, currencyCode)
+  const currentUsername = CORE_SELECTORS.getUsername(state)
+
   return {
+    currentUsername: currentUsername,
+    getToken: (username) => req.getToken(username),
+    getTransactions: (token) => req.getTransactions(token),
+    getBalance: (token) => req.getBalance(token)
     // displayDenomination,
     // updatingBalance: false,
     // transactions,
@@ -76,8 +83,11 @@ const mapStateToProps = (state: State) => {
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  getTransactions: (walletId, currencyCode) => dispatch(getTransactionsRequest(walletId, currencyCode)),
+const mapDispatchToProps = (dispatch: Dispatch, ownProps) => ({
+  // getToken: (username) => getToken(username),
+  // getTransactions: (token) => getTransactions(token),
+  // getBalance: (token) => getBalance(token)
+  // getTransactions: (walletId, currencyCode) => dispatch(getTransactionsRequest(walletId, currencyCode)),
   // updateExchangeRates: () => dispatch(updateExchangeRates()),
   // setContactList: contacts => dispatch(setContactList(contacts))
 })

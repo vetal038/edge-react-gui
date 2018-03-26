@@ -75,7 +75,7 @@ export const getExchangeDenomination = (state: State, currencyCode: string, spec
       return denomination
     }
   }
-  throw new Error('Edge: Denomination not found. Possible invalid currencyCode.')
+  throw new Error('vCash: Denomination not found. Possible invalid currencyCode.')
 }
 
 export const getUIState = (state: State) => {

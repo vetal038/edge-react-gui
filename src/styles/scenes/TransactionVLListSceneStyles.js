@@ -9,6 +9,71 @@ const TransactionVLListSceneStyles = {
   gradient: {
     height: THEME.SPACER.HEADER
   },
+  container: {
+    flex: 1,
+    alignItems: 'stretch',
+    flexDirection: 'column',
+    justifyContent: 'flex-start'
+  },
+  totalBalanceBox: {
+    // one
+    height: 111,
+    justifyContent: 'center'
+  },
+  totalBalanceWrap: {
+    flex: 3,
+    alignItems: 'center',
+    backgroundColor: THEME.COLORS.TRANSPARENT
+  },
+  totalBalanceHeader: {
+    flex: 2,
+    justifyContent: 'flex-end',
+    backgroundColor: THEME.COLORS.TRANSPARENT
+  },
+  totalBalanceText: {
+    fontSize: 18,
+    color: THEME.COLORS.PRIMARY
+  },
+  currentBalanceBoxDollarsWrap: {
+    flex: 3,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: THEME.COLORS.TRANSPARENT
+  },
+  currentBalanceBoxDollars: {
+    color: THEME.COLORS.PRIMARY,
+    fontSize: 44
+  },
+  walletsBox: {
+    // one
+    //flex: 1
+  },
+  walletsBoxHeaderWrap: {
+    paddingLeft: 12,
+    paddingRight: 6,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    height: 50
+  },
+  walletsBoxHeaderTextWrap: {
+    paddingVertical: 12,
+    width: '100%'
+  },
+  leftArea: {
+    flexDirection: 'row'
+  },
+  walletsBoxHeaderText: {
+    fontSize: 18,
+    color: THEME.COLORS.WHITE,
+    backgroundColor: THEME.COLORS.TRANSPARENT,
+    width: '100%',
+    textAlign: 'center'
+  },
+  listsContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-start'
+  },
   scene: Styles.SceneContainer,
   styleCatch: Styles,
   mainScrollView: {
@@ -21,17 +86,55 @@ const TransactionVLListSceneStyles = {
   balanceView: {
     flex: 0.25,
     width: '100%',
-    backgroundColor: '#80beff'
+    backgroundColor: '#6856d6',
+    flexDirection: 'column',
+    justifyContent: 'space-between'
+  },
+  balanceText: {
+    width: '100%',
+    marginTop: 10,
+    marginBottom: 10,
+    textAlign: 'center',
+    color: '#ffffff'
+  },
+  transactionText: {
+    width: '100%',
+    marginTop: 30,
+    textAlign: 'center'
   },
   renderItemWrapper: {
     paddingTop: 10,
     paddingBottom: 10,
     width: '100%',
+    backgroundColor: '#ffffff',
     borderBottomWidth: 2,
     borderBottomColor: '#000000',
-    marginBottom: 5
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  renderMainData: {
+    paddingLeft: 10,
+    justifyContent: 'center'
+  },
+  renderDetails: {
+    paddingRight: 10,
+    justifyContent: 'center'
   },
   renderItem: {
+    width: '100%',
+    textAlign: 'left',
+    color: THEME.COLORS.PRIMARY
+  },
+  itemStatusSuccess: {
+    fontSize: 12,
+    color: THEME.COLORS.ACCENT_MINT
+  },
+  itemStatusFail: {
+    fontSize: 12,
+    color: THEME.COLORS.ACCENT_RED
+  },
+  loadingItem: {
+    marginTop: 10,
     width: '100%',
     textAlign: 'center'
   },

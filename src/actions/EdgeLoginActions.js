@@ -30,4 +30,5 @@ export const lobbyLogin = () => async (dispatch: any, getState: any) => {
   await state.core.edgeLogin.lobby.loginRequest.approve()
   dispatch(actions.dispatchAction(Constants.INVALIDATE_ABC_LOBBY))
   Actions.pop()
+  Actions.transactionListScene()
 }

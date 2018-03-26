@@ -73,12 +73,12 @@ export default class Scan extends Component<Props> {
               <View style={[styles.overlayBlank]} />
 
               <Gradient style={[styles.overlayButtonAreaWrap]}>
-                <TouchableHighlight style={styles.bottomButton} onPress={this._onToggleAddressModal} underlayColor={styleRaw.underlay.color}>
-                  <View style={styles.bottomButtonTextWrap}>
-                    <FAIcon style={[styles.addressBookIcon]} name="address-book-o" size={18} />
-                    <T style={[styles.addressButtonText, styles.bottomButtonText]}>{ADDRESS_TEXT}</T>
-                  </View>
-                </TouchableHighlight>
+                {/*<TouchableHighlight style={styles.bottomButton} onPress={this._onToggleAddressModal} underlayColor={styleRaw.underlay.color}>*/}
+                  {/*<View style={styles.bottomButtonTextWrap}>*/}
+                    {/*<FAIcon style={[styles.addressBookIcon]} name="address-book-o" size={18} />*/}
+                    {/*<T style={[styles.addressButtonText, styles.bottomButtonText]}>{ADDRESS_TEXT}</T>*/}
+                  {/*</View>*/}
+                {/*</TouchableHighlight>*/}
 
                 <TouchableHighlight style={styles.bottomButton} onPress={this._onToggleTorch} underlayColor={styleRaw.underlay.color}>
                   <View style={styles.bottomButtonTextWrap}>
@@ -118,6 +118,7 @@ export default class Scan extends Component<Props> {
   onBarCodeRead = (scan: { data: string }) => {
     if (!this.props.scanEnabled) return
     const uri = scan.data
+    console.log('onBarCodeRead ', scan.data)
     this.parseURI(uri)
   }
 
@@ -169,7 +170,7 @@ export default class Scan extends Component<Props> {
     } else {
       return (
         <View style={[{ flex: 1, justifyContent: 'center', alignItems: 'center' }]}>
-          <ActivityIndicator size="large" style={{ flex: 1, alignSelf: 'center' }} />
+          <ActivityIndicator size="large" style={{ flex: 1, alignSelf: 'center' }} color="#6856d6"/>
         </View>
       )
     }

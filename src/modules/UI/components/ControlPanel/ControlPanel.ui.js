@@ -50,12 +50,12 @@ export default class ControlPanel extends Component {
       <SafeAreaView>
         <Gradient style={styles.container}>
           <View style={styles.bitcoin.container}>
-            <T style={styles.bitcoin.icon} />
-            <ExchangedExchangeRate
-              primaryCurrencyInfo={primaryInfo}
-              secondaryCurrencyInfo={secondaryInfo}
-              exchangeSecondaryToPrimaryRatio={secondaryToPrimaryRatio}
-            />
+            {/*<T style={styles.bitcoin.icon} />*/}
+            {/*<ExchangedExchangeRate*/}
+              {/*primaryCurrencyInfo={primaryInfo}*/}
+              {/*secondaryCurrencyInfo={secondaryInfo}*/}
+              {/*exchangeSecondaryToPrimaryRatio={secondaryToPrimaryRatio}*/}
+            {/*/>*/}
           </View>
 
           <TouchableHighlight style={styles.user.container} onPress={this._handlePressUserList} underlayColor={styles.underlay.color}>

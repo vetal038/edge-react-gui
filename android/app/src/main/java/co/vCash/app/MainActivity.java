@@ -1,4 +1,4 @@
-package co.edgesecure.app;
+package co.vCash.app;
 
 import android.os.Bundle;
 
