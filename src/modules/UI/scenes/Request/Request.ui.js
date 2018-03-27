@@ -198,13 +198,13 @@ export class Request extends Component<Props, State> {
   }
 
   shareMessage = () => {
-    const APP_NAME = 'vCash Wallet'
+    const APP_NAME = 'vCASH Wallet'
     Share.share(
       {
         message: this.state.encodedURI,
         title: sprintf(s.strings.request_qr_email_title, APP_NAME)
       },
-      { dialogTitle: 'Share vCash Request' }
+      { dialogTitle: 'Share vCASH Request' }
     )
       .then(this.showResult)
       .catch(error =>
