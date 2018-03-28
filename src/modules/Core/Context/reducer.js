@@ -9,12 +9,14 @@ import * as ACTION from './action.js'
 const initialState = {
   context: {},
   usernames: [],
-  nextUsername: ''
+  nextUsername: '',
+  isDevMode: true
 }
 export type State = {
   context: AbcContext | {},
   usernames: Array<string>,
-  nextUsername: string
+  nextUsername: string,
+  isDevMode: boolean
 }
 export const context = (state: State = initialState, action: Action) => {
   const { type, data = {} } = action
@@ -52,6 +54,12 @@ export const context = (state: State = initialState, action: Action) => {
       return {
         ...state,
         nextUsername: username || ''
+      }
+    }
+    case Constants.SWITCH_MODE: {
+      return {
+        ...state,
+        isDevMode: !state.isDevMode
       }
     }
 

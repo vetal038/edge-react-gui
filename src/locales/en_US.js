@@ -112,6 +112,8 @@ const strings = {
   settings_button_lock_settings: 'Tap to Lock Account Settings',
   settings_button_password_recovery: 'Password Recovery',
   settings_button_logout: 'Logout',
+  settings_button_switch_to_prod_mode: 'Switch to PROD mode',
+  settings_button_switch_to_dev_mode: 'Switch to DEV mode',
   settings_button_pin: 'Change PIN',
   settings_button_send_logs: 'Send Logs',
   settings_button_setup_two_factor: 'Setup 2 Factor',

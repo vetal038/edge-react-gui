@@ -174,3 +174,7 @@ export const logout = (username?: string) => ({
   type: Constants.LOGOUT,
   data: { username }
 })
+
+export const switchMode = () => ({
+  type: Constants.SWITCH_MODE
+})

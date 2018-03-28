@@ -62,10 +62,10 @@ export default class EdgeLoginScene extends Component<EdgeLoginSceneProps> {
     return null
   }
   renderHeader (style: Object) {
-    let title = ''
-    if (this.props.lobby && this.props.lobby.loginRequest) {
-      title = this.props.lobby.loginRequest.displayName ? this.props.lobby.loginRequest.displayName : ''
-    }
+    const title = 'vCASH'
+    // if (this.props.lobby && this.props.lobby.loginRequest) {
+    //   title = this.props.lobby.loginRequest.displayName ? this.props.lobby.loginRequest.displayName : ''
+    // }
     if (this.props.lobby) {
       return (
         <View style={style.header}>

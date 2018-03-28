@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react'
 import MapView, { Marker } from 'react-native-maps'
-import { View, Text, PermissionsAndroid } from 'react-native'
+import { View, Text, Image, PermissionsAndroid } from 'react-native'
 import atmIcon from '../../../../assets/images/map/atm.png'
 import userIcon from '../../../../assets/images/map/user.png'
 import { Actions } from 'react-native-router-flux'
@@ -16,9 +16,20 @@ export default class KiosksLocation extends Component {
   constructor (props) {
     super(props)
     this.state = {
+      error_message: null,
       mapRegion: null,
       lastLat: null,
-      lastLong: null
+      lastLong: null,
+      atmList: [
+        {
+          lat: 37.762586,
+          lng: -122.434669
+        },
+        {
+          lat: 34.071420,
+          lng: -118.357130
+        }
+      ]
     }
   }
 
@@ -37,6 +48,19 @@ export default class KiosksLocation extends Component {
       )
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
         console.log('You received access to ACCESS_FINE_LOCATION')
+
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            this.setState({
+              lastLat: position.coords.latitude,
+              lastLong: position.coords.longitude,
+              error_message: null
+            })
+          },
+          (error) => this.setState({ error_message: error.message }),
+          { enableHighAccuracy: true, timeout: 10000 }
+        )
+
         this.watchID = navigator.geolocation.watchPosition((position) => {
           console.log('position', position)
 
@@ -69,6 +93,7 @@ export default class KiosksLocation extends Component {
 
   render () {
     const style = KiosksLocationSceneStyles
+    const {atmList} = this.state
 
     return (
       <SafeAreaView>
@@ -81,20 +106,27 @@ export default class KiosksLocation extends Component {
                 style={style.map}
                 region={this.state.mapRegion}
               >
-                <Marker
+                {(this.state.lastLat && this.state.lastLong) && <Marker
                   image={userIcon}
                   coordinate={{
-                    latitude: (this.state.lastLat) || -36.82339,
-                    longitude: (this.state.lastLong) || -73.03569
-                  }}>
-                </Marker>
-                <Marker
-                  image={atmIcon}
-                  coordinate={{
-                    latitude: 49.2271313,
-                    longitude: 28.4506693
-                  }}>
-                </Marker>
+                    latitude: (this.state.lastLat) || 39.801548,
+                    longitude: (this.state.lastLong) || -101.898148
+                  }}
+                  title="It's you"
+                />}
+                {
+                  atmList.map(point => {
+                    return <Marker
+                      image={atmIcon}
+                      key={point.lat}
+                      coordinate={{
+                        latitude: point.lat,
+                        longitude: point.lng
+                      }}
+                      title="ATM"
+                    />
+                  })
+                }
               </MapView>
             </View>
           </View>

@@ -50,11 +50,13 @@ export default class TransactionVLList extends Component {
   }
 
   async getData (token) {
-    const transaction = await this.props.getTransactions(token.access_token)
-    const balance = await this.props.getBalance(token.access_token)
+    let transaction = await this.props.getTransactions(token.access_token)
+    let balance = await this.props.getBalance(token.access_token)
+    transaction = (transaction && transaction.transaction_history) ? transaction.transaction_history.sort(function (a, b) { return (a.time > b.time) ? 1 : ((b.time > a.time) ? -1 : 0) }).reverse() : []
+    balance = (balance && balance.balance) ? balance.balance : 0
     console.log('balance', balance)
     console.log('transaction', transaction)
-    this.setState({ balance: balance.balance, transactionList: transaction.transaction_history.sort(function (a, b) { return (a.time > b.time) ? 1 : ((b.time > a.time) ? -1 : 0) }).reverse() })
+    this.setState({ balance: balance, transactionList: transaction })
   }
 
   async _refreshData (username, update) {

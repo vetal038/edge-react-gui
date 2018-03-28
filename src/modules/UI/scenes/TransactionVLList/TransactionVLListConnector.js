@@ -58,6 +58,7 @@ const mapStateToProps = (state: State, ownProps) => {
   const currentUsername = CORE_SELECTORS.getUsername(state)
 
   return {
+    isDevMode: state.core.context.isDevMode,
     currentUsername: currentUsername,
     getToken: (username) => req.getToken(username),
     getTransactions: (token) => req.getTransactions(token),

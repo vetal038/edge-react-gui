@@ -27,6 +27,16 @@ const KiosksLocationSceneStyles = {
   },
   map: {
     ...StyleSheet.absoluteFillObject
+  },
+  markerTextWrapper: {
+    backgroundColor: '#ffffff',
+    borderRadius: 5,
+    marginTop: 2,
+    paddingVertical: 2,
+    paddingHorizontal: 5
+  },
+  markerText: {
+    fontSize: 10
   }
 }
 
