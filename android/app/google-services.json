@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "149672759138",
+    "firebase_url": "https://vcash-1521802783050.firebaseio.com",
+    "project_id": "vcash-1521802783050",
+    "storage_bucket": "vcash-1521802783050.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:149672759138:android:f0a3810d9939df3b",
+        "android_client_info": {
+          "package_name": "co.vCash.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "149672759138-uafrf9malmhe094r5m2furjoolehs48r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.vCash.app",
+            "certificate_hash": "2d5c8d8aecd414dc90152fcb2ff05210d8506086"
+          }
+        },
+        {
+          "client_id": "149672759138-4g28nmmo99ih37kvt64j7upqrb9k0neq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPqMkS5yTRc0EYE5-tGYZDFf_leUnLGSc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "149672759138-4g28nmmo99ih37kvt64j7upqrb9k0neq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

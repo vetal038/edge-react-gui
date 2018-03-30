@@ -126,6 +126,7 @@
     "react-native-push-notification": "^3.0.2",
     "react-native-qrcode": "^0.2.3",
     "react-native-randombytes": "git://github.com/Airbitz/react-native-randombytes.git",
+    "react-native-restart": "0.0.6",
     "react-native-router-flux": "4.0.0-beta.28",
     "react-native-share": "^1.0.21",
     "react-native-slider": "^0.11.0",

@@ -11,42 +11,42 @@ import s from '../../../../locales/strings'
 import T from '../../components/FormattedText'
 
 const BALANCE_TEXT = s.strings.fragment_wallets_balance_text
+const TITLE = s.strings.fragment_wallets_transaction_history_text
 
 export default class TransactionVLList extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      token: {},
-      balance: 0,
-      transactionList: [],
-      updating: false,
-      firstTimeLoading: false
+      //token: {},
+      //balance: 0,
+      //transactionList: [],
+      //firstTimeLoading: false
     }
   }
 
-  componentDidMount () {
-    if (this._interval) {
-      clearInterval(this._interval)
-    }
-    this._interval = setInterval(() => {
-      if (this.state.firstTimeLoading && this.props.currentUsername) {
-        this._refreshData(this.props.currentUsername, false)
-        console.log('Timer')
-      }
-    }, 5 * 1000)
-  }
-
-  componentWillUnmount () {
-    clearInterval(this._interval)
-  }
+  // componentDidMount () {
+  //   if (this._interval) {
+  //     clearInterval(this._interval)
+  //   }
+  //   this._interval = setInterval(() => {
+  //     if (this.state.firstTimeLoading && this.props.currentUsername) {
+  //       this._refreshData(this.props.currentUsername, false)
+  //       console.log('Timer')
+  //     }
+  //   }, 5 * 1000)
+  // }
+  //
+  // componentWillUnmount () {
+  //   clearInterval(this._interval)
+  // }
 
   componentWillReceiveProps (nextProps) {
     console.log('componentWillReceiveProps', nextProps.currentUsername)
     if (nextProps.currentUsername && nextProps.currentUsername !== this.props.currentUsername) {
-      this._refreshData(nextProps.currentUsername, false)
-    } else if (this.props.currentUsername) {
-      this._refreshData(this.props.currentUsername, false)
-    }
+      this._refreshData(nextProps.currentUsername)
+    }/* else if (this.props.currentUsername) {
+      this._refreshData(this.props.currentUsername)
+    }*/
   }
 
   async getData (token) {
@@ -56,24 +56,21 @@ export default class TransactionVLList extends Component {
     balance = (balance && balance.balance) ? balance.balance : 0
     console.log('balance', balance)
     console.log('transaction', transaction)
-    this.setState({ balance: balance, transactionList: transaction })
+    this.props.changeBalance({ balance })
+    this.props.getTransaction({ transactionList: transaction })
+    this.props.setFirstTimeLoading()
+    // this.setState({ balance: balance, transactionList: transaction })
   }
 
-  async _refreshData (username, update) {
+  async _refreshData (username) {
     if (username) {
-      if (update) {
-        this.setState({ updating: true })
-      }
       const token = await this.props.getToken(username)
       console.log('_getToken', token)
       if (!token.error) {
-        this.setState({ token: token })
+        this.props.addToken({ token })
+        // this.setState({ token: token })
       }
-      this.getData(this.state.token)
-      this.setState({ updating: false })
-      if (!update) {
-        this.setState({ firstTimeLoading: true })
-      }
+      this.getData(this.props.token)
     }
   }
 
@@ -108,10 +105,7 @@ export default class TransactionVLList extends Component {
 
   render () {
     const style = TransactionVLListSceneStyles
-    const list = this.state.transactionList
-    //const title = !this.state.updating ? 'Refresh Data' : 'Refreshing...'
-    const title = 'Transaction History'
-    const { firstTimeLoading, balance } = this.state
+    const list = this.props.transactionList
 
     return (
       <SafeAreaView>
@@ -125,10 +119,10 @@ export default class TransactionVLList extends Component {
               </View>
               <View style={[style.currentBalanceBoxDollarsWrap]}>
                 <T style={[style.currentBalanceBoxDollars]}>
-                  {!firstTimeLoading ? (
+                  {!this.props.firstTimeLoading ? (
                     <Text>Loading...</Text>
                   ) : (
-                    '$' + balance.toFixed(2)
+                    '$' + this.props.balance.toFixed(2)
                   )}
                 </T>
               </View>
@@ -138,16 +132,14 @@ export default class TransactionVLList extends Component {
           <View style={[style.walletsBox]}>
             <Gradient style={[style.walletsBoxHeaderWrap]}>
               <View style={[style.walletsBoxHeaderTextWrap]}>
-                {/*<TouchableOpacity onPress={this._refreshData.bind(this, this.props.currentUsername, true)}>*/}
-                  <T style={style.walletsBoxHeaderText}>{title}</T>
-                {/*</TouchableOpacity>*/}
+                <T style={style.walletsBoxHeaderText}>{TITLE}</T>
               </View>
             </Gradient>
           </View>
 
           <View style={[style.listsContainer]}>
             {
-              !firstTimeLoading ? (
+              !this.props.firstTimeLoading ? (
                 <Text style={style.loadingItem}>Loading...</Text>
               ) : (
                 this._renderTransactionList(style, list)

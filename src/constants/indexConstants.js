@@ -26,3 +26,4 @@ export const ANDROID = 'android'
 export const PUSH_DELAY_SECONDS = 86400
 export const LOCAL_STORAGE_BACKGROUND_PUSH_KEY = 'EdgeWalletLastPushNotification'
 export const SENDER_ID = '149672759138'
+export const DEFAULT_MODE = false // true - `dev`, false - `prod`

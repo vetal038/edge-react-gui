@@ -1,8 +1,9 @@
 import { AsyncStorage } from 'react-native'
+import * as Constants from '../../../../../constants/indexConstants'
 
 const baseUrl = async function () {
   let value = await AsyncStorage.getItem('isDevMode')
-  value = (value && value.length) ? value === 'dev' : true
+  value = (value && value.length) ? value === 'dev' : Constants.DEFAULT_MODE
   return value ? 'http://35.193.78.240' : 'http://vaultlogic.com'
 }
 const appToken = 'dmF1bHQtd2FsbGV0LWFwcDp2YXVsdC13YWxsZXQtYXBw'

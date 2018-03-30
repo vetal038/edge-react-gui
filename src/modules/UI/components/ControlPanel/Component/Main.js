@@ -28,7 +28,7 @@ export default class Main extends Component<Props, State> {
   constructor (props) {
     super(props)
     this.state = {
-      isDevMode: true
+      isDevMode: true // true - `dev`, false - `prod`. Immediately rewriting after component mounting
     }
   }
   onLogout = () => {

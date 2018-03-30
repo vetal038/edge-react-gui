@@ -68,6 +68,7 @@ const strings = {
   fragment_wallet_unconfirmed: 'Pending',
   fragment_wallets_addwallet_name_hint: 'New Wallet Name',
   fragment_wallets_balance_text: 'Total Balance',
+  fragment_wallets_transaction_history_text: 'Transaction History',
   fragment_wallets_delete_wallet: 'Delete Wallet',
   fragment_wallets_set_custom_fees: 'Set Custom Mining Fee',
   fragment_wallets_resync_wallet: 'Resync Wallet',

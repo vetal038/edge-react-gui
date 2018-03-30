@@ -29,6 +29,7 @@ import com.rt2zz.reactnativecontacts.ReactNativeContacts;
 import com.lwansbrough.RCTCamera.RCTCameraPackage;
 import io.fixd.rctlocale.RCTLocalePackage;
 import com.airbnb.android.react.maps.MapsPackage;
+import com.avishayil.rnrestart.ReactNativeRestartPackage;
 
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -74,7 +75,8 @@ public class MainApplication extends Application implements ReactApplication {
             new ReactNativeContacts(),
             new RCTCameraPackage(),
             new RCTLocalePackage(),
-            new MapsPackage()
+            new MapsPackage(),
+            new ReactNativeRestartPackage()
       );
     }
   };

@@ -21,6 +21,8 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import MenuIcon from '../assets/images/MenuButton/menu.png'
 import exchangeIconSelected from '../assets/images/tabbar/exchange_selected.png'
 import exchangeIcon from '../assets/images/tabbar/exchange.png'
+import qrIconSelected from '../assets/images/tabbar/qr_selected.png'
+import qrIcon from '../assets/images/tabbar/qr.png'
 import receiveIconSelected from '../assets/images/tabbar/receive_selected.png'
 import receiveIcon from '../assets/images/tabbar/receive.png'
 import scanIconSelected from '../assets/images/tabbar/scan_selected.png'
@@ -104,6 +106,7 @@ tabBarIconFiles[Constants.REQUEST] = receiveIcon
 tabBarIconFiles[Constants.SCAN] = scanIcon
 tabBarIconFiles[Constants.TRANSACTION_LIST] = exchangeIcon
 tabBarIconFiles[Constants.EXCHANGE] = exchangeIcon
+tabBarIconFiles[Constants.QR] = qrIcon
 tabBarIconFiles[Constants.MAP] = mapIcon
 
 const tabBarIconFilesSelected: { [tabName: string]: string } = {}
@@ -112,6 +115,7 @@ tabBarIconFilesSelected[Constants.REQUEST] = receiveIconSelected
 tabBarIconFilesSelected[Constants.SCAN] = scanIconSelected
 tabBarIconFilesSelected[Constants.TRANSACTION_LIST] = exchangeIconSelected
 tabBarIconFilesSelected[Constants.EXCHANGE] = exchangeIconSelected
+tabBarIconFilesSelected[Constants.QR] = qrIconSelected
 tabBarIconFilesSelected[Constants.MAP] = mapIconSelected
 
 const TRANSACTION_DETAILS = s.strings.title_transaction_details
@@ -267,7 +271,7 @@ export default class Main extends Component<Props, State> {
                         />
                       </Stack>
 
-                      <Stack key={Constants.SCAN} icon={this.icon(Constants.EXCHANGE)} tabBarLabel={SCAN}>
+                      <Stack key={Constants.SCAN} icon={this.icon(Constants.QR)} tabBarLabel={SCAN}>
                         <Scene
                           key={Constants.SCAN_NOT_USED}
                           navTransparent={true}

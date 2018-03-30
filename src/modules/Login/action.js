@@ -30,13 +30,13 @@ export const initializeAccount = (account: AbcAccount, touchIdInfo: Object) => a
     }
   }
   const currencyCodes = {}
-  if (Platform.OS === Constants.IOS) {
-    PushNotification.configure({
-      onNotification: notification => {
-        console.log('NOTIFICATION:', notification)
-      }
-    })
-  }
+  // if (Platform.OS === Constants.IOS) {
+  //   PushNotification.configure({
+  //     onNotification: notification => {
+  //       console.log('NOTIFICATION:', notification)
+  //     }
+  //   })
+  // }
   const accountInitObject = {
     account: account,
     touchIdInfo: touchIdInfo,

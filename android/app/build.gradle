@@ -88,7 +88,7 @@ android {
 
     defaultConfig {
         applicationId "co.vCash.app"
-        minSdkVersion 23
+        minSdkVersion 22
         targetSdkVersion 25
         versionCode 21000000
         versionName "99.99.99"
@@ -176,10 +176,14 @@ dependencies {
     compile project(':react-native-contacts-wrapper')
     compile project(':react-native-contacts')
     compile project(':react-native-camera')
+    compile project(':react-native-restart')
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:27.0.1'
     compile 'com.facebook.react:react-native:+'
     compile project(':react-native-push-notification')
+    compile ('com.google.android.gms:play-services-gcm:+') {
+        force = true;
+    }
     compile(project(':react-native-maps')){
         exclude group: 'com.google.android.gms', module: 'play-services-base'
         exclude group: 'com.google.android.gms', module: 'play-services-maps'

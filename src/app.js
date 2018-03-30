@@ -18,8 +18,42 @@ import s from './locales/strings.js'
 import Main from './modules/MainConnector'
 import { log, logToServer } from './util/logger'
 import { makeCoreContext } from './util/makeContext.js'
+import { pushNotificationHandler } from './util/pushNotificationHandler'
 
 const store: {} = configureStore({})
+
+PushNotification.configure({
+  // (optional) Called when Token is generated (iOS and Android)
+  onRegister: function (token) {
+    console.log('TOKEN:', token)
+    AsyncStorage.setItem('push_notification_token', JSON.stringify(token))
+  },
+  // (required) Called when a remote or local notification is opened or received
+  onNotification: function (notification) {
+    console.log('NOTIFICATION:', notification)
+    pushNotificationHandler(notification, store.dispatch)
+    // process the notification
+    // required on iOS only (see fetchCompletionHandler docs: https://facebook.github.io/react-native/docs/pushnotificationios.html)
+    // notification.finish(PushNotificationIOS.FetchResult.NoData)
+  },
+  // ANDROID ONLY: GCM Sender ID (optional - not required for local notifications, but is need to receive remote push notifications)
+  senderID: Constants.SENDER_ID,
+  // IOS ONLY (optional): default: all - Permissions to register.
+  permissions: {
+    alert: true,
+    badge: true,
+    sound: true
+  },
+  // Should the initial notification be popped automatically
+  // default: true
+  popInitialNotification: true,
+  /**
+   * (optional) default: true
+   * - Specified if permissions (ios) and token (android and ios) will requested or not,
+   * - if not, you must call PushNotificationsHandler.requestPermissions() later
+   */
+  requestPermissions: true
+})
 
 const perfTimers = {}
 const perfCounters = {}
