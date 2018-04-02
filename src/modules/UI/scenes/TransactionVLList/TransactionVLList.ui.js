@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import moment from 'moment'
 import { Text, View, FlatList, TouchableOpacity } from 'react-native'
 import { Actions } from 'react-native-router-flux'
+import * as Constants from '../../../../constants/indexConstants'
 import { TransactionVLListSceneStyles } from '../../../../styles/indexStyles'
 import Gradient from '../../../UI/components/Gradient/Gradient.ui'
 import SafeAreaView from '../../components/SafeAreaView'
@@ -91,8 +92,8 @@ export default class TransactionVLList extends Component {
       <View style={style.renderItemWrapper}>
         <View style={style.renderMainData}>
           <Text style={style.renderItem}>
-            {item.strategy} ${item.user_amount.toFixed(2)}
-            {item.strategy === 'INCREASE_CAPACITY' && ('\nFEE $' + item.usd.toFixed(2))}
+            {Constants.getStrategy(item.strategy)} ${item.user_amount.toFixed(2)}
+            {item.strategy === 'INCREASE_CAPACITY' && ('\n' + Constants.getStrategy(Constants.FEE) + ' $' + item.usd.toFixed(2))}
           </Text>
         </View>
         <View style={style.renderDetails}>

@@ -8,6 +8,7 @@ export * from './DropDownValueConstants'
 export * from './WalletAndCurrencyConstants'
 export * from './FeeConstants'
 export * from './ErrorConstants'
+export * from './TransactionsConstants'
 export { REQUEST_STATUS } from './RequestStatusConstants'
 
 export const LEFT_TO_RIGHT = 'leftToRight'

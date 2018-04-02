@@ -1,6 +1,7 @@
 // @flow
 import PushNotification from 'react-native-push-notification'
 import { addTransaction, changeBalance, firstTimeLoading } from '../modules/UI/scenes/TransactionVLList/action'
+import * as Constants from '../constants/indexConstants'
 
 export function pushNotificationHandler (notification, dispatch) {
   const notifDefaultObj = {
@@ -31,12 +32,12 @@ export function pushNotificationHandler (notification, dispatch) {
     case 'transaction':
       const transaction = JSON.parse(notification.transaction)
       console.log('transaction', transaction)
-      let message = `Type: ${transaction.strategy} Amount: $${Number(transaction.user_amount).toFixed(2)}`
+      let message = `${Constants.getStrategy(transaction.strategy)}${transaction.strategy === 'INCREASE_CAPACITY' ? '' : ':'} $${Number(transaction.user_amount).toFixed(2)}`
       if (transaction.strategy === 'INCREASE_CAPACITY') {
-        message += ` Fee: $${Number(transaction.usd).toFixed(2)}`
+        message += `. ${Constants.getStrategy(Constants.FEE)}: $${Number(transaction.usd).toFixed(2)}`
       }
       if (notification.hasOwnProperty('balance')) {
-        message += ` Balance: $${Number(notification.balance).toFixed(2)}`
+        message += `. Balance: $${Number(notification.balance).toFixed(2)}`
         dispatch(changeBalance({balance: Number(notification.balance)}))
       }
       notifHandleObj = {
