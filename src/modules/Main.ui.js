@@ -26,6 +26,10 @@ import scanIconSelected from '../assets/images/tabbar/scan_selected.png'
 import scanIcon from '../assets/images/tabbar/scan.png'
 import walletIconSelected from '../assets/images/tabbar/wallets_selected.png'
 import walletIcon from '../assets/images/tabbar/wallets.png'
+import textbooksIconSelected from '../assets/images/tabbar/textbooks_selected.png'
+import textbooksIcon from '../assets/images/tabbar/textbooks.png'
+import barcodeIconSelected from '../assets/images/tabbar/barcode_selected.png'
+import barcodeIcon from '../assets/images/tabbar/barcode.png'
 import ExchangeDropMenu from '../connectors/components/HeaderMenuExchangeConnector'
 import ExchangeConnector from '../connectors/scene/CryptoExchangeSceneConnector'
 import EdgeLoginSceneConnector from '../connectors/scene/EdgeLoginSceneConnector'
@@ -57,6 +61,7 @@ import { CreateWalletName } from './UI/scenes/CreateWallet/CreateWalletName.ui.j
 import { CreateWalletReview } from './UI/scenes/CreateWallet/CreateWalletReviewConnector'
 import { CreateWalletSelectCrypto } from './UI/scenes/CreateWallet/CreateWalletSelectCryptoConnector'
 import { CreateWalletSelectFiat } from './UI/scenes/CreateWallet/CreateWalletSelectFiatConnector'
+import { SellBookScan, SellBookSearch, SellBookSelectedProduct, SellBookTypeAddress, SellBookFinish } from './UI/scenes/SellBook/SellBookScanConnector'
 import EditToken from './UI/scenes/EditToken'
 import LoginConnector from './UI/scenes/Login/LoginConnector'
 import ManageTokens from './UI/scenes/ManageTokens'
@@ -71,6 +76,7 @@ import TransactionDetails from './UI/scenes/TransactionDetails/TransactionDetail
 import TransactionListConnector from './UI/scenes/TransactionList/TransactionListConnector'
 import { HwBackButtonHandler } from './UI/scenes/WalletList/components/HwBackButtonHandler'
 import WalletList from './UI/scenes/WalletList/WalletListConnector'
+import TextbooksList from './UI/scenes/TextbooksList/TextbooksListConnector'
 
 const pluginFactories: Array<EdgeCorePluginFactory> = [
   // Exchanges:
@@ -97,6 +103,8 @@ const tabBarIconFiles: { [tabName: string]: string } = {}
 tabBarIconFiles[Constants.WALLET_LIST] = walletIcon
 tabBarIconFiles[Constants.REQUEST] = receiveIcon
 tabBarIconFiles[Constants.SCAN] = scanIcon
+tabBarIconFiles[Constants.YOUR_TEXTBOOKS] = textbooksIcon
+tabBarIconFiles[Constants.SELL_BOOK] = barcodeIcon
 tabBarIconFiles[Constants.TRANSACTION_LIST] = exchangeIcon
 tabBarIconFiles[Constants.EXCHANGE] = exchangeIcon
 
@@ -104,6 +112,8 @@ const tabBarIconFilesSelected: { [tabName: string]: string } = {}
 tabBarIconFilesSelected[Constants.WALLET_LIST] = walletIconSelected
 tabBarIconFilesSelected[Constants.REQUEST] = receiveIconSelected
 tabBarIconFilesSelected[Constants.SCAN] = scanIconSelected
+tabBarIconFilesSelected[Constants.YOUR_TEXTBOOKS] = textbooksIconSelected
+tabBarIconFilesSelected[Constants.SELL_BOOK] = barcodeIconSelected
 tabBarIconFilesSelected[Constants.TRANSACTION_LIST] = exchangeIconSelected
 tabBarIconFilesSelected[Constants.EXCHANGE] = exchangeIconSelected
 
@@ -114,6 +124,8 @@ const CREATE_WALLET_SELECT_FIAT = s.strings.title_create_wallet_select_fiat
 const CREATE_WALLET = s.strings.title_create_wallet
 const REQUEST = s.strings.title_request
 const SEND = s.strings.title_send
+const YOUR_TEXTBOOKS = s.strings.title_your_textbooks
+const SELL_BOOK = s.strings.title_sell_book
 const EDGE_LOGIN = s.strings.title_edge_login
 const EXCHANGE = s.strings.title_exchange
 const CHANGE_MINING_FEE = s.strings.title_change_mining_fee
@@ -327,6 +339,68 @@ export default class Main extends Component<Props, State> {
                         />
                       </Stack>
 
+                      <Stack key={Constants.YOUR_TEXTBOOKS} icon={this.icon(Constants.YOUR_TEXTBOOKS)} tabBarLabel={YOUR_TEXTBOOKS}>
+                        <Scene
+                          key={Constants.YOUR_TEXTBOOKS_SCENE}
+                          navTransparent={true}
+                          onEnter={() => {
+                            this.props.dispatchFetchTextBooks()
+                          }}
+                          component={TextbooksList}
+                          renderTitle={this.renderTitle(YOUR_TEXTBOOKS)}
+                          renderLeftButton={this.renderHelpButton()}
+                          renderRightButton={this.renderMenuButton()}
+                        />
+                      </Stack>
+
+                      <Stack key={Constants.SELL_BOOK} icon={this.icon(Constants.SELL_BOOK)} tabBarLabel={SELL_BOOK}>
+                        <Scene
+                          key={Constants.SELL_BOOK_SCENE_SCAN}
+                          navTransparent={true}
+                          onEnter={() => {
+                            this.props.requestPermission(CAMERA)
+                            this.props.dispatchEnableScan()
+                          }}
+                          onExit={this.props.dispatchDisableScan}
+                          component={SellBookScan}
+                          renderTitle={this.renderTitle(SELL_BOOK)}
+                          renderLeftButton={this.renderEmptyButton()}
+                          renderRightButton={this.renderEmptyButton()}
+                        />
+                        <Scene
+                          key={Constants.SELL_BOOK_SCENE_SEARCH}
+                          navTransparent={true}
+                          component={SellBookSearch}
+                          renderTitle={this.renderTitle(SELL_BOOK)}
+                          renderLeftButton={this.renderBackButton()}
+                          renderRightButton={this.renderEmptyButton()}
+                        />
+                        <Scene
+                          key={Constants.SELL_BOOK_SCENE_SELECTED_PRODUCT}
+                          navTransparent={true}
+                          component={SellBookSelectedProduct}
+                          renderTitle={this.renderTitle(SELL_BOOK)}
+                          renderLeftButton={this.renderBackButton()}
+                          renderRightButton={this.renderEmptyButton()}
+                        />
+                        <Scene
+                          key={Constants.SELL_BOOK_SCENE_TYPE_ADDRESS}
+                          navTransparent={true}
+                          component={SellBookTypeAddress}
+                          renderTitle={this.renderTitle(SELL_BOOK)}
+                          renderLeftButton={this.renderBackButton()}
+                          renderRightButton={this.renderEmptyButton()}
+                        />
+                        <Scene
+                          key={Constants.SELL_BOOK_SCENE_FINISH}
+                          navTransparent={true}
+                          component={SellBookFinish}
+                          renderTitle={this.renderTitle(SELL_BOOK)}
+                          renderLeftButton={this.renderEmptyButton()}
+                          renderRightButton={this.renderEmptyButton()}
+                        />
+                      </Stack>
+
                       <Scene
                         key={Constants.REQUEST}
                         navTransparent={true}
@@ -362,24 +436,24 @@ export default class Main extends Component<Props, State> {
                         />
                       </Stack>
 
-                      <Stack key={Constants.EXCHANGE} icon={this.icon(Constants.EXCHANGE)} tabBarLabel={EXCHANGE}>
-                        <Scene
-                          key={Constants.EXCHANGE_NOT_USED}
-                          navTransparent={true}
-                          component={ExchangeConnector}
-                          renderTitle={this.renderTitle(EXCHANGE)}
-                          renderLeftButton={this.renderExchangeButton()}
-                          renderRightButton={this.renderMenuButton()}
-                        />
-                        <Scene
-                          key={Constants.CHANGE_MINING_FEE_EXCHANGE}
-                          navTransparent={true}
-                          component={ChangeMiningFeeExchange}
-                          renderTitle={this.renderTitle(CHANGE_MINING_FEE)}
-                          renderLeftButton={this.renderBackButton()}
-                          renderRightButton={this.renderHelpButton()}
-                        />
-                      </Stack>
+                      {/*<Stack key={Constants.EXCHANGE} icon={this.icon(Constants.EXCHANGE)} tabBarLabel={EXCHANGE}>*/}
+                        {/*<Scene*/}
+                          {/*key={Constants.EXCHANGE_NOT_USED}*/}
+                          {/*navTransparent={true}*/}
+                          {/*component={ExchangeConnector}*/}
+                          {/*renderTitle={this.renderTitle(EXCHANGE)}*/}
+                          {/*renderLeftButton={this.renderExchangeButton()}*/}
+                          {/*renderRightButton={this.renderMenuButton()}*/}
+                        {/*/>*/}
+                        {/*<Scene*/}
+                          {/*key={Constants.CHANGE_MINING_FEE_EXCHANGE}*/}
+                          {/*navTransparent={true}*/}
+                          {/*component={ChangeMiningFeeExchange}*/}
+                          {/*renderTitle={this.renderTitle(CHANGE_MINING_FEE)}*/}
+                          {/*renderLeftButton={this.renderBackButton()}*/}
+                          {/*renderRightButton={this.renderHelpButton()}*/}
+                        {/*/>*/}
+                      {/*</Stack>*/}
                     </Tabs>
 
                     <Stack key={Constants.SEND_CONFIRMATION} hideTabBar>

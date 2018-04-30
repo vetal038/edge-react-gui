@@ -57,6 +57,7 @@ const strings = {
   fragment_send_flash: 'Flash',
   fragment_send_other_wallet_header_title: 'Choose a wallet to transfer funds to:',
   fragment_send_send_bitcoin_unscannable: 'Unable to scan QR code',
+  fragment_scan_barcode: 'Unable to scan barcode',
   fragment_send_send_to_hint: 'Public Address or Private Key',
   fragment_send_subtitle: 'Send',
   fragment_transaction_exchange: 'Exchange',
@@ -147,6 +148,9 @@ const strings = {
   string_first_bitcoin_wallet_name: 'My Bitcoin',
   my_crypto_wallet_name: 'My %s',
 
+  //Sell Book
+  string_sell_book: 'Sell Book',
+
   // Exchange
   string_from_exchange_info: 'You are about to exchange\n %1$s %2$s\n (%3$s)\n from %4$s',
   string_help: 'Help',
@@ -188,6 +192,8 @@ const strings = {
   title_request: 'Request',
   title_send_confirmation: 'Send Confirmation',
   title_send: 'Send',
+  title_your_textbooks: 'Your Textbooks',
+  title_sell_book: 'Sell a book',
   title_settings: 'Settings',
   title_transaction_details: 'Transaction Details',
   title_transactions: 'Transactions',

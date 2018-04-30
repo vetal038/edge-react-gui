@@ -115,8 +115,9 @@ export default class Scan extends Component<Props> {
     this.props.toggleScanToWalletListModal()
   }
 
-  onBarCodeRead = (scan: { data: string }) => {
+  onQRCodeRead = (scan: { data: string }) => {
     if (!this.props.scanEnabled) return
+    console.log('onQRCodeRead', scan, Actions.currentScene)
     const uri = scan.data
     this.parseURI(uri)
   }
@@ -156,11 +157,12 @@ export default class Scan extends Component<Props> {
   }
 
   renderCamera = () => {
-    if (this.props.cameraPermission === AUTHORIZED) {
+    console.log('this.props.cameraPermission', this.props.cameraPermission);
+    if (this.props.cameraPermission === AUTHORIZED && Actions.currentScene === 'scan_notused') {
       const torchMode = this.props.torchEnabled ? Camera.constants.TorchMode.on : Camera.constants.TorchMode.off
 
-      return <Camera style={styles.preview} ref="cameraCapture" torchMode={torchMode} onBarCodeRead={this.onBarCodeRead} />
-    } else if (this.props.cameraPermission === DENIED) {
+      return <Camera style={styles.preview} ref="cameraCapture" torchMode={torchMode} onBarCodeRead={this.onQRCodeRead} />
+    } else if (this.props.cameraPermission === DENIED && Actions.currentScene === 'scan_notused') {
       return (
         <View style={[styles.preview, { justifyContent: 'center', alignItems: 'center' }, UTILS.border()]}>
           <Text>{DENIED_PERMISSION_TEXT}</Text>

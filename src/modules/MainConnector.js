@@ -10,9 +10,11 @@ import Main from './Main.ui'
 import type { Dispatch } from './ReduxTypes'
 import { setKeyboardHeight } from './UI/dimensions/action'
 import { disableScan, enableScan } from './UI/scenes/Scan/action'
+import { fetchTextbooksDispatcher } from './UI/scenes/TextbooksList/action'
 import { addCurrencyPlugin } from './UI/Settings/action'
 
-const mapStateToProps = () => ({})
+const mapStateToProps = (state) => ({})
+
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   requestPermission: permission => {
     return dispatch(requestPermission(permission))
@@ -34,6 +36,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   },
   addUsernames: usernames => {
     return dispatch(addUsernames(usernames))
+  },
+  dispatchFetchTextBooks: () => {
+    return dispatch(fetchTextbooksDispatcher())
   },
   // commented out since it was blowing up flow && doesnt seem to be called.. TODO remove
   /* setLocaleInfo: (localeInfo) => {

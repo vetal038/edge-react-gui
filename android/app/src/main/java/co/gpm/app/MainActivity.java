@@ -1,4 +1,4 @@
-package co.edgesecure.app;
+package co.gpm.app;
 
 import android.os.Bundle;
 

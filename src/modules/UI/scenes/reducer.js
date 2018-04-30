@@ -18,6 +18,8 @@ import scan from './Scan/reducer'
 import sendConfirmation from './SendConfirmation/reducer'
 import transactionDetails from './TransactionDetails/reducer'
 import transactionList from './TransactionList/reducer'
+import textBooks from './TextbooksList/reducer'
+import sellBook from './SellBook/reducer'
 import walletList from './WalletList/reducer'
 import { walletTransferListReducer as walletTransferList } from './WalletTransferList/reducer'
 
@@ -26,6 +28,8 @@ export const scenes = combineReducers({
   sendConfirmation,
   changeMiningFee,
   transactionList,
+  textBooks,
+  sellBook,
   transactionDetails,
   controlPanel,
   walletList,

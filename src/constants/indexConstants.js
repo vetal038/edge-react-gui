@@ -1,4 +1,5 @@
 // @flow
+import * as Keys from './SceneKeys'
 
 export * from './SceneKeys'
 export * from './ActionConstants'
@@ -24,3 +25,12 @@ export const IOS = 'ios'
 export const ANDROID = 'android'
 export const PUSH_DELAY_SECONDS = 86400
 export const LOCAL_STORAGE_BACKGROUND_PUSH_KEY = 'EdgeWalletLastPushNotification'
+
+export const SELLING_BOOK_STEPS_NUMBER = 5
+export const SELLING_FLOW = {
+  [Keys.SELL_BOOK_SCENE_SCAN]: 1,
+  [Keys.SELL_BOOK_SCENE_SEARCH]: 2,
+  [Keys.SELL_BOOK_SCENE_SELECTED_PRODUCT]: 3,
+  [Keys.SELL_BOOK_SCENE_TYPE_ADDRESS]: 4,
+  [Keys.SELL_BOOK_SCENE_FINISH]: 5
+}
