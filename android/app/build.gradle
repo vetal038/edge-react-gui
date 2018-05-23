@@ -91,7 +91,7 @@ android {
         minSdkVersion 22
         targetSdkVersion 25
         versionCode 21000000
-        versionName "99.99.99"
+        versionName "0.1.8"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
@@ -113,6 +113,7 @@ android {
     }
     buildTypes {
         release {
+            //debuggable true
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
             signingConfig signingConfigs.release
@@ -179,7 +180,8 @@ dependencies {
     compile project(':react-native-restart')
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:27.0.1'
-    compile 'com.facebook.react:react-native:+'
+    //compile 'com.facebook.react:react-native:+'
+    compile ("com.facebook.react:react-native:0.51.0") { force = true }
     compile project(':react-native-push-notification')
     compile ('com.google.android.gms:play-services-gcm:+') {
         force = true;

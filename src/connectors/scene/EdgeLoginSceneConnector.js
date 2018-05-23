@@ -11,12 +11,18 @@ export const mapStateToProps = (state: any) => ({
   style: EdgeLoginScreen,
   lobby: state.core.edgeLogin.lobby,
   error: state.core.edgeLogin.error,
-  isProcessing: state.core.edgeLogin.isProcessing
+  isProcessing: state.core.edgeLogin.isProcessing,
+  qrcode: state.ui.scenes.sendConfirmation.qrcode
 })
 
 export const mapDispatchToProps = (dispatch: any) => ({
   accept: () => {
     dispatch(actions.lobbyLogin()).catch(e => {
+      console.log(e)
+    })
+  },
+  acceptvCashLogin: () => {
+    dispatch(actions.vCashLogin()).catch(e => {
       console.log(e)
     })
   },

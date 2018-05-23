@@ -179,30 +179,30 @@ export default class SettingsOverview extends Component<Props, State> {
             routeFunction={this.showConfirmPasswordModal}
             right={<Icon style={styles.settingsLocks} name={this.props.lockButtonIcon} size={24} type={Constants.ION_ICONS} />}
           />
-          <RowRoute
-            leftText={s.strings.settings_button_change_password}
-            disabled={this.props.isLocked}
-            routeFunction={this._onPressChangePasswordRouting}
-            right={<SimpleIcon style={styles.settingsRowRightArrow} name="arrow-right" />}
-          />
+          {/*<RowRoute*/}
+            {/*leftText={s.strings.settings_button_change_password}*/}
+            {/*disabled={this.props.isLocked}*/}
+            {/*routeFunction={this._onPressChangePasswordRouting}*/}
+            {/*right={<SimpleIcon style={styles.settingsRowRightArrow} name="arrow-right" />}*/}
+          {/*/>*/}
           <RowRoute
             leftText={s.strings.settings_button_pin}
             disabled={this.props.isLocked}
             routeFunction={this._onPressChangePinRouting}
             right={<SimpleIcon style={styles.settingsRowRightArrow} name="arrow-right" />}
           />
-          <RowRoute
-            leftText={s.strings.settings_button_setup_two_factor}
-            disabled={this.props.isLocked}
-            routeFunction={this._onPressOtp}
-            right={<SimpleIcon style={styles.settingsRowRightArrow} name="arrow-right" />}
-          />
-          <RowRoute
-            leftText={s.strings.settings_button_password_recovery}
-            disabled={this.props.isLocked}
-            routeFunction={this._onPressRecoverPasswordRouting}
-            right={<SimpleIcon style={styles.settingsRowRightArrow} name="arrow-right" />}
-          />
+          {/*<RowRoute*/}
+            {/*leftText={s.strings.settings_button_setup_two_factor}*/}
+            {/*disabled={this.props.isLocked}*/}
+            {/*routeFunction={this._onPressOtp}*/}
+            {/*right={<SimpleIcon style={styles.settingsRowRightArrow} name="arrow-right" />}*/}
+          {/*/>*/}
+          {/*<RowRoute*/}
+            {/*leftText={s.strings.settings_button_password_recovery}*/}
+            {/*disabled={this.props.isLocked}*/}
+            {/*routeFunction={this._onPressRecoverPasswordRouting}*/}
+            {/*right={<SimpleIcon style={styles.settingsRowRightArrow} name="arrow-right" />}*/}
+          {/*/>*/}
 
           <Gradient style={[styles.unlockRow]}>
             <View style={[styles.accountBoxHeaderTextWrap, b('yellow')]}>
@@ -216,12 +216,12 @@ export default class SettingsOverview extends Component<Props, State> {
           <View>
             <RowModal onPress={this.showAutoLogoutModal} leftText={s.strings.settings_title_auto_logoff} rightText={autoLogoutRightText} />
 
-            <RowRoute
-              disabled={false}
-              leftText={s.strings.settings_title_currency}
-              routeFunction={Actions.defaultFiatSetting}
-              right={<Text>{this.props.defaultFiat.replace('iso:', '')}</Text>}
-            />
+            {/*<RowRoute*/}
+              {/*disabled={false}*/}
+              {/*leftText={s.strings.settings_title_currency}*/}
+              {/*routeFunction={Actions.defaultFiatSetting}*/}
+              {/*right={<Text>{this.props.defaultFiat.replace('iso:', '')}</Text>}*/}
+            {/*/>*/}
 
             <RowSwitch
               leftText={s.strings.settings_title_pin_login}
@@ -230,21 +230,21 @@ export default class SettingsOverview extends Component<Props, State> {
               value={this.props.pinLoginEnabled}
             />
 
-            {Object.keys(this.options)
-              .filter(optionName => {
-                if (!this.options[optionName]) return false
-                const { text, key, routeFunction } = this.options[optionName]
-                return text && key && routeFunction
-              })
-              .map(this.renderRowSwitch)}
+            {/*{Object.keys(this.options)*/}
+              {/*.filter(optionName => {*/}
+                {/*if (!this.options[optionName]) return false*/}
+                {/*const { text, key, routeFunction } = this.options[optionName]*/}
+                {/*return text && key && routeFunction*/}
+              {/*})*/}
+              {/*.map(this.renderRowSwitch)}*/}
 
-            {this.currencies.map(this.renderRowRoute)}
+            {/*{this.currencies.map(this.renderRowRoute)}*/}
 
-            <RowRoute disabled={false} leftText={s.strings.settings_button_send_logs} scene={'changePassword'} routeFunction={this.showSendLogsModal} />
+            {/*<RowRoute disabled={false} leftText={s.strings.settings_button_send_logs} scene={'changePassword'} routeFunction={this.showSendLogsModal} />*/}
 
-            <View style={[styles.debugArea, b('green')]}>
-              <PrimaryButton text={s.strings.settings_button_debug} onPressFunction={this._onPressDebug} />
-            </View>
+            {/*<View style={[styles.debugArea, b('green')]}>*/}
+              {/*<PrimaryButton text={s.strings.settings_button_debug} onPressFunction={this._onPressDebug} />*/}
+            {/*</View>*/}
 
             <View style={styles.emptyBottom} />
           </View>

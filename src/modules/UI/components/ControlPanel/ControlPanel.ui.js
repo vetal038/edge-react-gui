@@ -1,6 +1,12 @@
 import React, { Component } from 'react'
-import { Image, TouchableHighlight, View } from 'react-native'
+import { Image, TouchableHighlight, View, Text } from 'react-native'
 import MDIcon from 'react-native-vector-icons/MaterialIcons'
+
+import { Actions } from 'react-native-router-flux'
+import { sprintf } from 'sprintf-js'
+import settings from '../../../../assets/images/sidenav/settings.png'
+import s from '../../../../locales/strings.js'
+const SETTINGS_TEXT = sprintf(s.strings.settings_title)
 
 import person from '../../../../assets/images/sidenav/accounts.png'
 import { emptyGuiDenomination } from '../../../../types'
@@ -49,22 +55,36 @@ export default class ControlPanel extends Component {
     return (
       <SafeAreaView>
         <Gradient style={styles.container}>
-          <View style={styles.bitcoin.container}>
+          {/*<View style={styles.bitcoin.container}>*/}
             {/*<T style={styles.bitcoin.icon} />*/}
             {/*<ExchangedExchangeRate*/}
               {/*primaryCurrencyInfo={primaryInfo}*/}
               {/*secondaryCurrencyInfo={secondaryInfo}*/}
               {/*exchangeSecondaryToPrimaryRatio={secondaryToPrimaryRatio}*/}
             {/*/>*/}
-          </View>
+          {/*</View>*/}
 
-          <TouchableHighlight style={styles.user.container} onPress={this._handlePressUserList} underlayColor={styles.underlay.color}>
+          <TouchableHighlight style={styles.user.container} /*onPress={this._handlePressUserList}*/ underlayColor={styles.underlay.color}>
             <View style={{ flexDirection: 'row' }}>
               <View style={styles.iconImageContainer}>
                 <Image style={styles.iconImage} source={person} />
               </View>
               <T style={styles.user.name}>{this.props.username}</T>
-              <MDIcon style={styles.icon} name={arrowIcon} />
+              {/*<MDIcon style={styles.icon} name={arrowIcon} />*/}
+            </View>
+          </TouchableHighlight>
+          <TouchableHighlight
+            style={styles.others.iosTouchableHighlight}
+            underlayColor={styles.main.iosTouchableHighlightUnderlayColor}
+            onPress={Actions.settingsOverviewTab}
+          >
+            <View style={[styles.others.link, styles.others.borderBottom, { flex: 1 }]}>
+              <View style={styles.iconImageContainer}>
+                <Image style={styles.iconImage} source={settings} />
+              </View>
+              <View style={styles.others.textContainer}>
+                <Text style={styles.others.text}>{SETTINGS_TEXT}</Text>
+              </View>
             </View>
           </TouchableHighlight>
 

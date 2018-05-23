@@ -14,6 +14,7 @@ type EdgeLoginSceneProps = {
   error?: string,
   isProcessing: boolean,
   accept(): void,
+  acceptvCashLogin(): void,
   decline(): void
 }
 
@@ -30,13 +31,13 @@ export default class EdgeLoginScene extends Component<EdgeLoginSceneProps> {
     )
   }
   renderButtons (style: Object) {
-    if (this.props.isProcessing) {
-      return (
-        <View style={style.buttonsProcessing}>
-          <ActivityIndicator />
-        </View>
-      )
-    }
+    // if (this.props.isProcessing) {
+    //   return (
+    //     <View style={style.buttonsProcessing}>
+    //       <ActivityIndicator />
+    //     </View>
+    //   )
+    // }
     if (this.props.error) {
       return (
         <View style={style.buttonContainer}>
@@ -50,7 +51,7 @@ export default class EdgeLoginScene extends Component<EdgeLoginSceneProps> {
       <View style={style.buttonContainer}>
         <View style={style.buttons}>
           <SecondaryButton style={style.cancel} onPressFunction={this.props.decline} text={s.strings.string_cancel_cap} />
-          <PrimaryButton style={style.submit} onPressFunction={this.props.accept} text={s.strings.accept_button_text} />
+          <PrimaryButton style={style.submit} onPressFunction={this.props.acceptvCashLogin} text={s.strings.accept_button_text} />
         </View>
       </View>
     )
@@ -83,13 +84,13 @@ export default class EdgeLoginScene extends Component<EdgeLoginSceneProps> {
   }
   render () {
     const Style = this.props.style
-    if (!this.props.lobby && !this.props.error) {
-      return (
-        <View style={Style.spinnerContainer}>
-          <ActivityIndicator />
-        </View>
-      )
-    }
+    // if (!this.props.lobby && !this.props.error) {
+    //   return (
+    //     <View style={Style.spinnerContainer}>
+    //       <ActivityIndicator />
+    //     </View>
+    //   )
+    // }
     return (
       <SafeAreaView>
         <Gradient style={Style.gradient} />

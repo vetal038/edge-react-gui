@@ -12,6 +12,7 @@ import settings from '../../../../../assets/images/sidenav/settings.png'
 import s from '../../../../../locales/strings.js'
 import styles from '../style'
 import UserList from './UserListConnector'
+import req from '../../../../../http/user'
 
 const LOGOUT_TEXT = sprintf(s.strings.settings_button_logout)
 const SWITCH_TO_PROD_MODE = sprintf(s.strings.settings_button_switch_to_prod_mode)
@@ -33,6 +34,7 @@ export default class Main extends Component<Props, State> {
   }
   onLogout = () => {
     this.props.logout()
+    req.deletePushNotificationToken()
   }
   async onSwitchMode (isDevMode) {
     this.props.setMode(isDevMode)
@@ -68,6 +70,20 @@ export default class Main extends Component<Props, State> {
               </View>
             </View>
           </TouchableHighlight>
+          {/*<TouchableHighlight*/}
+            {/*style={styles.others.iosTouchableHighlight}*/}
+            {/*underlayColor={styles.main.iosTouchableHighlightUnderlayColor}*/}
+            {/*onPress={Actions.settingsOverviewTab}*/}
+          {/*>*/}
+            {/*<View style={[styles.others.link, styles.others.borderBottom, { flex: 1 }]}>*/}
+              {/*<View style={styles.iconImageContainer}>*/}
+                {/*<Image style={styles.iconImage} source={settings} />*/}
+              {/*</View>*/}
+              {/*<View style={styles.others.textContainer}>*/}
+                {/*<Text style={styles.others.text}>{SETTINGS_TEXT}</Text>*/}
+              {/*</View>*/}
+            {/*</View>*/}
+          {/*</TouchableHighlight>*/}
           <TouchableHighlight
             style={styles.others.iosTouchableHighlight}
             underlayColor={styles.main.iosTouchableHighlightUnderlayColor}
@@ -79,20 +95,6 @@ export default class Main extends Component<Props, State> {
               </View>
               <View style={styles.others.textContainer}>
                 <Text style={styles.others.text}>{LOGOUT_TEXT}</Text>
-              </View>
-            </View>
-          </TouchableHighlight>
-          <TouchableHighlight
-            style={styles.others.iosTouchableHighlight}
-            underlayColor={styles.main.iosTouchableHighlightUnderlayColor}
-            onPress={Actions.settingsOverviewTab}
-          >
-            <View style={[styles.others.link, styles.others.borderBottom, { flex: 1 }]}>
-              <View style={styles.iconImageContainer}>
-                <Image style={styles.iconImage} source={settings} />
-              </View>
-              <View style={styles.others.textContainer}>
-                <Text style={styles.others.text}>{SETTINGS_TEXT}</Text>
               </View>
             </View>
           </TouchableHighlight>

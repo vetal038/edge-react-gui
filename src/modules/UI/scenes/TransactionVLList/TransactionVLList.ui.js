@@ -1,9 +1,8 @@
 // @flow
 
 import React, { Component } from 'react'
-import moment from 'moment'
-import { Text, View, FlatList, TouchableOpacity } from 'react-native'
-import { Actions } from 'react-native-router-flux'
+import moment from 'moment-timezone'
+import { Text, View, FlatList } from 'react-native'
 import * as Constants from '../../../../constants/indexConstants'
 import { TransactionVLListSceneStyles } from '../../../../styles/indexStyles'
 import Gradient from '../../../UI/components/Gradient/Gradient.ui'
@@ -17,59 +16,30 @@ const TITLE = s.strings.fragment_wallets_transaction_history_text
 export default class TransactionVLList extends Component {
   constructor (props) {
     super(props)
-    this.state = {
-      //token: {},
-      //balance: 0,
-      //transactionList: [],
-      //firstTimeLoading: false
-    }
+    this.state = {}
   }
 
-  // componentDidMount () {
-  //   if (this._interval) {
-  //     clearInterval(this._interval)
+  // componentWillReceiveProps (nextProps) {
+  //   console.log('componentWillReceiveProps', nextProps.currentUsername)
+  //   if (nextProps.currentUsername && nextProps.currentUsername !== this.props.currentUsername) {
+  //     this._refreshData(nextProps.currentUsername)
   //   }
-  //   this._interval = setInterval(() => {
-  //     if (this.state.firstTimeLoading && this.props.currentUsername) {
-  //       this._refreshData(this.props.currentUsername, false)
-  //       console.log('Timer')
-  //     }
-  //   }, 5 * 1000)
-  // }
-  //
-  // componentWillUnmount () {
-  //   clearInterval(this._interval)
   // }
 
-  componentWillReceiveProps (nextProps) {
-    console.log('componentWillReceiveProps', nextProps.currentUsername)
-    if (nextProps.currentUsername && nextProps.currentUsername !== this.props.currentUsername) {
-      this._refreshData(nextProps.currentUsername)
-    }/* else if (this.props.currentUsername) {
-      this._refreshData(this.props.currentUsername)
-    }*/
-  }
-
-  async getData (token) {
-    let transaction = await this.props.getTransactions(token.access_token)
-    let balance = await this.props.getBalance(token.access_token)
-    transaction = (transaction && transaction.transaction_history) ? transaction.transaction_history.sort(function (a, b) { return (a.time > b.time) ? 1 : ((b.time > a.time) ? -1 : 0) }).reverse() : []
-    balance = (balance && balance.balance) ? balance.balance : 0
-    console.log('balance', balance)
-    console.log('transaction', transaction)
-    this.props.changeBalance({ balance })
-    this.props.getTransaction({ transactionList: transaction })
+  getData = async (token) => {
+    const walletInfo = await this.props.getWallet(token.access_token)
+    if (walletInfo && !walletInfo.error) {
+      this.props.fetchWallet({ wallet: walletInfo })
+    }
     this.props.setFirstTimeLoading()
-    // this.setState({ balance: balance, transactionList: transaction })
   }
 
-  async _refreshData (username) {
+  _refreshData = async (username) => {
     if (username) {
       const token = await this.props.getToken(username)
       console.log('_getToken', token)
       if (!token.error) {
         this.props.addToken({ token })
-        // this.setState({ token: token })
       }
       this.getData(this.props.token)
     }
@@ -92,13 +62,17 @@ export default class TransactionVLList extends Component {
       <View style={style.renderItemWrapper}>
         <View style={style.renderMainData}>
           <Text style={style.renderItem}>
-            {Constants.getStrategy(item.strategy)} ${item.user_amount.toFixed(2)}
-            {item.strategy === 'INCREASE_CAPACITY' && ('\n' + Constants.getStrategy(Constants.FEE) + ' $' + item.usd.toFixed(2))}
+            {Constants.getStrategy(item.strategy || item.type)}
+            {(item.strategy)
+              ? (' $' + item.dollars.toFixed(2) + '/V' + item.vaults)
+              : ((item.type && item.type === 'LIMIT') ? (' $' + item.new_state.toFixed(2)) : null)
+            }
+            {(item.type) && ('\n' + Constants.getStrategy(Constants.FEE) + ' $' + item.cost.toFixed(2))}
           </Text>
         </View>
         <View style={style.renderDetails}>
-          <Text style={style.renderItem}>{moment(item.time).format('MM/DD/YYYY HH:mm:ss')}</Text>
-          <Text style={[style.renderItem, statusStyle(item.status)]}>{item.status}</Text>
+          <Text style={style.renderItem}>{moment.utc(item.created_date + ' ' + item.created_time, 'YYYY-MM-DD HH:mm:ss').local().format('MM/DD/YYYY HH:mm:ss')}</Text>
+          {item.status && (<Text style={[style.renderItem, statusStyle(item.status)]}>{item.status}</Text>)}
         </View>
       </View>
     )
@@ -123,7 +97,7 @@ export default class TransactionVLList extends Component {
                   {!this.props.firstTimeLoading ? (
                     <Text>Loading...</Text>
                   ) : (
-                    '$' + this.props.balance.toFixed(2)
+                    '$' + this.props.wallet.dollars.toFixed(2) + ' / V' + this.props.wallet.vaults
                   )}
                 </T>
               </View>

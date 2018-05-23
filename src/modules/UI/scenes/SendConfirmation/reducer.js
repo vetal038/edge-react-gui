@@ -48,6 +48,13 @@ export const sendConfirmation = (state: SendConfirmationState = initialState, ac
         pending
       }
     }
+    case ACTION.UPDATE_QRCODE: {
+      const { qrcode } = data
+      return {
+        ...state,
+        qrcode
+      }
+    }
     case ACTION.RESET: {
       return initialState
     }

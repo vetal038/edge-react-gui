@@ -57,7 +57,8 @@ export const initialState = {
       miscJson: ''
     }
   },
-  error: null
+  error: null,
+  qrcode: null
 }
 
 export const getScene = (state: State): any => getSceneState(state, 'sendConfirmation')

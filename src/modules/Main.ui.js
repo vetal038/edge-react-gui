@@ -146,6 +146,7 @@ const DEFAULT_FIAT = s.strings.title_default_fiat
 
 type Props = {
   requestPermission: (permission: Permission) => void,
+  requestATMList: (username) => void,
   username?: string,
   addCurrencyPlugin: AbcCurrencyPlugin => void,
   setKeyboardHeight: number => void,
@@ -263,6 +264,9 @@ export default class Main extends Component<Props, State> {
                           key={Constants.TRANSACTION_WRAPPER_SCENE}
                           navTransparent={true}
                           panHandlers={null}
+                          onEnter={() => {
+                            this.props.dispatchFetchWallet()
+                          }}
                           component={TransactionVLListConnector}
                           renderTitle={this.renderTitle(TRANSACTION_LIST)}
                           renderLeftButton={this.renderEmptyButton()}
@@ -290,7 +294,7 @@ export default class Main extends Component<Props, State> {
                           navTransparent={true}
                           component={EdgeLoginSceneConnector}
                           renderTitle={this.renderTitle(EDGE_LOGIN)}
-                          renderLeftButton={this.renderHelpButton()}
+                          renderLeftButton={this.renderEmptyButton()}
                           renderRightButton={this.renderEmptyButton()}
                         />
                       </Stack>
@@ -299,6 +303,9 @@ export default class Main extends Component<Props, State> {
                         <Scene
                           key={Constants.LOCATION_WRAPPER_SCENE}
                           navTransparent={true}
+                          onEnter={() => {
+                            this.props.requestATMList(this.props.username)
+                          }}
                           panHandlers={null}
                           component={KiosksLocationConnector}
                           renderTitle={this.renderTitle(KIOSKS_LOCATION)}

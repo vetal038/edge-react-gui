@@ -16,6 +16,7 @@ const PREFIX = 'UI/SendConfimation/'
 export const UPDATE_LABEL = PREFIX + 'UPDATE_LABEL'
 export const UPDATE_IS_KEYBOARD_VISIBLE = PREFIX + 'UPDATE_IS_KEYBOARD_VISIBLE'
 export const UPDATE_SPEND_PENDING = PREFIX + 'UPDATE_SPEND_PENDING'
+export const UPDATE_QRCODE = PREFIX + 'UPDATE_QRCODE'
 export const RESET = PREFIX + 'RESET'
 export const UPDATE_TRANSACTION = PREFIX + 'UPDATE_TRANSACTION'
 
@@ -101,6 +102,11 @@ export const updateTransaction = (transaction: ?AbcTransaction, parsedUri: ?AbcP
 export const updateSpendPending = (pending: boolean) => ({
   type: UPDATE_SPEND_PENDING,
   data: { pending }
+})
+
+export const updateQRCode = (qrcode) => ({
+  type: UPDATE_QRCODE,
+  data: { qrcode }
 })
 
 export { createTX as updateMiningFees, createTX as updateParsedURI }

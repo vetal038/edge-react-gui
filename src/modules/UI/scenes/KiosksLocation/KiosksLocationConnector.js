@@ -1,6 +1,5 @@
 // @flow
 
-import _ from 'lodash'
 import { connect } from 'react-redux'
 
 import * as CORE_SELECTORS from '../../../Core/selectors.js'
@@ -11,7 +10,9 @@ const mapStateToProps = (state: State, ownProps) => {
   const currentUsername = CORE_SELECTORS.getUsername(state)
 
   return {
-    currentUsername: currentUsername
+    currentUsername: currentUsername,
+    token: state.ui.scenes.transactionsVLList.token,
+    atmList: state.ui.scenes.KiosksLocation.atmList
   }
 }
 

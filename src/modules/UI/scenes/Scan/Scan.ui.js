@@ -117,9 +117,22 @@ export default class Scan extends Component<Props> {
 
   onBarCodeRead = (scan: { data: string }) => {
     if (!this.props.scanEnabled) return
-    const uri = scan.data
+    const qrcode = scan.data
     console.log('onBarCodeRead ', scan.data)
-    this.parseURI(uri)
+    //this.parseURI(uri)
+    this.updateQRCode(qrcode)
+  }
+
+  updateQRCode = (qrcode: string) => {
+    try {
+      this.props.updateQRCode(qrcode)
+      Actions.edgeLogin()
+    } catch (error) {
+      this.props.dispatchDisableScan()
+      Alert.alert(s.strings.fragment_send_send_bitcoin_unscannable, error.toString(), [
+        { text: s.strings.string_ok, onPress: () => this.props.dispatchEnableScan() }
+      ])
+    }
   }
 
   parseURI = (uri: string) => {

@@ -11,7 +11,7 @@ import * as CORE_SELECTORS from '../../../Core/selectors.js'
 import type { Dispatch, State } from '../../../ReduxTypes'
 import { toggleScanToWalletListModal } from '../../components/WalletListModal/action'
 import * as UI_SELECTORS from '../../selectors.js'
-import { updateLabel, updateParsedURI } from '../SendConfirmation/action.js'
+import { updateLabel, updateParsedURI, updateQRCode } from '../SendConfirmation/action.js'
 import { toggleWalletListModal } from '../WalletTransferList/action'
 import { disableScan, enableScan, toggleAddressModal, toggleEnableTorch } from './action'
 import Scan from './Scan.ui'
@@ -38,6 +38,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   toggleAddressModal: () => dispatch(toggleAddressModal()),
   toggleWalletListModal: () => dispatch(toggleWalletListModal()),
   updateParsedURI: (parsedURI: AbcParsedUri) => dispatch(updateParsedURI(parsedURI)),
+  updateQRCode: (qrcode) => dispatch(updateQRCode(qrcode)),
   updateWalletTransfer: wallet => dispatch(updateLabel(wallet)),
   toggleScanToWalletListModal: () => dispatch(toggleScanToWalletListModal()),
   loginWithEdge: (url: string) => {
