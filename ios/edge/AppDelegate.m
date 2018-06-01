@@ -15,6 +15,9 @@
 #import <React/RCTLinkingManager.h>
 #import <React/RCTPushNotificationManager.h>
 
+@import HockeySDK;
+@import GoogleMaps;
+
 @implementation AppDelegate
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
@@ -33,7 +36,16 @@
 }
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  
+  [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"3f4bd392e25945389edc876d47657267"];
+  // Do some additional configuration if needed here
+  [[BITHockeyManager sharedHockeyManager] startManager];
+  [[BITHockeyManager sharedHockeyManager].authenticator
+   authenticateInstallation];
+
+  
   NSURL *jsCodeLocation;
+  [GMSServices provideAPIKey:@"AIzaSyDgJfq6NSYQqRTtmoQZszwXx0Kq-VSEtgM"];
 
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
 

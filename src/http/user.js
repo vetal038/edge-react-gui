@@ -73,7 +73,7 @@ async function getBalance (token) {
 
 async function getWallet (token) {
   const url = await Constants.baseUrl()
-  return fetch(url + '/api/purchase/wallets', {
+  return fetch(url + '/api/purchase/wallet', {
     method: 'GET',
     headers: {
       'Authorization': 'bearer ' + token
