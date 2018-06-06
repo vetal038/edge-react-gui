@@ -177,7 +177,7 @@ export default class SettingsOverview extends Component<Props, State> {
             leftText={s.strings[this.props.lockButton]}
             disabled={false}
             routeFunction={this.showConfirmPasswordModal}
-            right={<Icon style={styles.settingsLocks} name={this.props.lockButtonIcon} size={24} type={Constants.ION_ICONS} />}
+            right={<Icon style={styles.settingsLocks} name={this.props.lockButtonIcon} size={22} type={Constants.ION_ICONS} />}
           />
           {/*<RowRoute*/}
             {/*leftText={s.strings.settings_button_change_password}*/}

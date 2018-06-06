@@ -51,14 +51,14 @@ export const styles = {
 
   // //// Beginning of Settings Row ///////
   settingsRowContainer: {
-    height: 44,
+    height: 48,
     backgroundColor: THEME.COLORS.GRAY_4,
     borderBottomWidth: 1,
     borderBottomColor: THEME.COLORS.GRAY_3,
     paddingLeft: 20,
     paddingRight: 20,
-    paddingTop: 15,
-    paddingBottom: 15,
+    paddingTop: 12,
+    paddingBottom: 12,
     justifyContent: 'space-around'
   },
   settingsRowTextRow: {

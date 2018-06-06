@@ -90,8 +90,8 @@ android {
         applicationId "co.vCash.app"
         minSdkVersion 22
         targetSdkVersion 25
-        versionCode 1
-        versionName "0.1.8.1"
+        versionCode 3
+        versionName "0.1.8.3"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
