@@ -75,6 +75,7 @@
     "constants-browserify": "0.0.1",
     "core-js": "2.5.2",
     "currency-symbol-map": "^4.0.1",
+    "dateformat": "^3.0.3",
     "dns.js": "^1.0.1",
     "domain-browser": "^1.1.7",
     "edge-currency-bitcoin": "2.14.4",

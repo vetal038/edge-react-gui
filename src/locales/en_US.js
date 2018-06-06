@@ -192,7 +192,7 @@ const strings = {
   title_request: 'Request',
   title_send_confirmation: 'Send Confirmation',
   title_transaction_list: 'Transaction List',
-  title_kiosks_location: 'Nearest ATM Locations',
+  title_kiosks_location: 'ATM Locations',
   title_send: 'Send',
   title_settings: 'Settings',
   title_transaction_details: 'Transaction Details',
